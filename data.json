@@ -1,0 +1,86 @@
+{
+    "siteName": "Aryan Garg",
+    "navbar": [
+      { "label": "About", "href": "#about" },
+      { "label": "Experience", "href": "#experience" },
+      { "label": "Projects", "href": "#projects" },
+      { "label": "Skills", "href": "#skills" },
+      { "label": "Contact", "href": "#contact" },
+      { "label": "Blog", "href": "https://aryan401.hashnode.dev" }
+    ],
+    "tagline": "Engineer. Builder. Living on Prem.",
+    "currentRole": "Embedded Software Engineer at Ciena",
+    "headings": {
+      "about": "About Me",
+      "experience": "Experience",
+      "projects": "Projects",
+      "skills": "Tech Stack",
+      "contact": "Contact",
+      "blogs": "Blog Articles"
+    },
+    "about": "Driven by a passion for innovation, I am a highly motivated computer engineering professional with a Bachelor of Engineering from Thapar Institute of Engineering and Technology. My expertise lies in designing and implementing robust software solutions, with a strong focus on machine learning, automation, and optimizing complex systems. I excel at leveraging cutting-edge technologies to develop intelligent tools and enhance efficiency, consistently seeking to apply analytical thinking and a curious mindset to solve challenging problems.",
+    "experience": [
+      {
+        "role": "Software Engineer I",
+        "company": "Ciena",
+        "duration": "Jan 2025 – Present",
+        "description": "Designed APIs to simulate hardware behavior and accelerate feature validation for network nodes."
+      },
+      {
+        "role": "Software Engineer Intern",
+        "company": "SellerSetu",
+        "duration": "June 2024 – December 2024",
+        "description": "Orchestrated multi-agent LLM systems and developed intelligent image-processing tools."
+      },
+      {
+        "role": "Data Engineering Intern",
+        "company": "One97 Communications",
+        "duration": "July 2023 – September 2023",
+        "description": "Distilled and fine-tuned GPT-2 for efficient query solutions."
+      }
+    ],
+    "projects": [
+      {
+        "name": "Smart Tutor",
+        "description": "A multi-agent AI tutor system that specializes in academic subjects, Built with Google's Agent Developent Kit and Gemini.",
+        "link": "https://github.com/Aryan-401/SmartTutorAI-"
+      },
+      {
+        "name": "TalkToDoc",
+        "description": "Modular LLM based system that allows users to interact with over 20 types of documents, understand their content, and extract information.",
+        "link": "https://github.com/Aryan-401/TalkToDoc"
+      },
+      {
+        "name": "TalkToDoc",
+        "description": "Modular LLM based system that allows users to interact with over 20 types of documents, understand their content, and extract information.",
+        "link": "https://github.com/Aryan-401/TalkToDoc"
+      }
+    ],
+    "skills": [
+        "API Design", "Large Language Model Orchestration",  "Agentic Workflows", "Google AI Studio", "LangGraph", "LangChain", "Model Context Protocol", "Google Cloud", "Python", "Automation Testing", "Network Design"
+    ],
+    "blogs": [
+      {
+        "title": "Friendship over with Attention. Now FNet is my best friend",
+        "link": "https://aryan401.hashnode.dev/fnet-vs-attention"
+      },
+      {
+        "title": "PaliGemma 2 - VLMs made easy",
+        "link": "https://aryan401.hashnode.dev/paligemma-2"
+      },
+      {
+        "title": "An honest Guide to Optimize LLMs for upto 10x Inference",
+        "link": "https://aryan401.hashnode.dev/an-honest-guide-to-optimize-llms-for-upto-10x-inference"
+      }
+    ],
+    "contact": {
+        "emailLabel": "Email:",
+        "email": "aryan.raj.garg@gmail.com",
+        "githubLabel": "GitHub:",
+        "github": "https://github.com/Aryan-401",
+        "linkedinLabel": "LinkedIn:",
+        "linkedin": "https://linkedin.com/in/aryan401"
+    },
+    "footer": "© 2025 Aryan Garg. All rights reserved. Built with ❤️ using ChatGPT"
+  }
+  
