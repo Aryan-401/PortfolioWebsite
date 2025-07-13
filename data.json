@@ -6,7 +6,8 @@
       { "label": "Projects", "href": "#projects" },
       { "label": "Skills", "href": "#skills" },
       { "label": "Contact", "href": "#contact" },
-      { "label": "Blog", "href": "https://aryan401.hashnode.dev" }
+      { "label": "Blog", "href": "https://aryan401.hashnode.dev" },
+      { "label": "Resume", "href": "https://drive.google.com/drive/folders/1pf9LwtlJWys3azE6_ocj6NX-DN5v6xnC" }
     ],
     "defaultTheme": "dark",
     "tagline": "Engineer. Builder. Living on Prem.",
@@ -17,7 +18,8 @@
       "projects": "Projects",
       "skills": "Tech Stack",
       "contact": "Contact",
-      "blogs": "Blog Articles"
+      "blogs": "Blog Articles",
+      "resume": "Resume"
     },
     "about": "Driven by a passion for innovation, I am a highly motivated computer engineering professional with a Bachelor of Engineering from Thapar Institute of Engineering and Technology. My expertise lies in designing and implementing robust software solutions, with a strong focus on machine learning, automation, and optimizing complex systems. I excel at leveraging cutting-edge technologies to develop intelligent tools and enhance efficiency, consistently seeking to apply analytical thinking and a curious mindset to solve challenging problems.",
     "experience": [
