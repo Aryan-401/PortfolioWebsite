@@ -46,7 +46,7 @@ fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/m
         div.innerHTML = `
           <h4>${proj.name}</h4>
           <p>${proj.description}</p>
-          <a href="${proj.link}" target="_blank">View Project</a>
+          <a href="${proj.link}" target="_blank" class="project-button">View Project</a>
         `;
         projList.appendChild(div);
       });
@@ -91,5 +91,43 @@ fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/m
 
     // Footer
     document.getElementById("footer-text").textContent = data.footer;
+
+    // --- MODIFIED THEME TOGGLE LOGIC ---
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const emojiSpan = themeToggle.querySelector('.emoji');
+
+    // Function to set the theme
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        body.classList.add('dark-mode');
+        emojiSpan.textContent = '💡'; // Lightbulb for dark mode
+        localStorage.setItem('theme', 'dark');
+      } else {
+        body.classList.remove('dark-mode');
+        emojiSpan.textContent = '🌙'; // Moon for light mode
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // Check for saved theme preference or use default from data.json, else 'light'
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      // Use the defaultTheme from data.json if available, otherwise 'light'
+      setTheme(data.defaultTheme || 'light');
+    }
+
+    // Event listener for the theme toggle button
+    themeToggle.addEventListener('click', () => {
+      if (body.classList.contains('dark-mode')) {
+        setTheme('light');
+      } else {
+        setTheme('dark');
+      }
+    });
+    // --- END MODIFIED THEME TOGGLE LOGIC ---
+
   })
   .catch((err) => console.error("Error loading JSON:", err));

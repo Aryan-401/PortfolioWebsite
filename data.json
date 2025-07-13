@@ -8,6 +8,7 @@
       { "label": "Contact", "href": "#contact" },
       { "label": "Blog", "href": "https://aryan401.hashnode.dev" }
     ],
+    "defaultTheme": "dark",
     "tagline": "Engineer. Builder. Living on Prem.",
     "currentRole": "Embedded Software Engineer at Ciena",
     "headings": {
