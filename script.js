@@ -1,4 +1,4 @@
-fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/main/data.json")
+fetch("data.json")
   .then((res) => res.json())
   .then((data) => {
     document.getElementById("site-name").textContent = data.siteName;

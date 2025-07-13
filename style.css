@@ -40,6 +40,7 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    gap: 1rem;
   }
   
   nav h1 {
@@ -56,9 +57,13 @@
     text-decoration: none;
     color: #1f2937;
     font-weight: 500;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
     transition: background 0.2s, color 0.2s;
+    display: inline-block;
+    min-height: 44px; /* Minimum touch target size */
+    line-height: 1.2;
+    text-align: center;
   }
   
   nav a:hover {
@@ -194,9 +199,159 @@
     transition: color 0.3s ease; /* Smooth transition for theme change */
   }
   
-  @media (max-width: 600px) {
+  /* Mobile First Responsive Design */
+  
+  /* Small Mobile (320px - 480px) */
+  @media (max-width: 480px) {
+    body { font-size: 14px; }
+    
+    /* Header optimizations */
+    header { padding: 0.75rem 1rem; }
+    nav h1 { font-size: 1.1rem; }
+    nav ul { 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      gap: 0.5rem; 
+      margin: 0.5rem 0;
+    }
+    nav a { 
+      font-size: 0.85rem; 
+      padding: 0.4rem 0.6rem; 
+      white-space: nowrap;
+    }
+    
+    /* Hero section */
+    #hero { 
+      padding: 3rem 1rem 2rem; 
+      text-align: center;
+    }
+    h2 { font-size: 1.75rem; line-height: 1.2; }
+    #hero p { font-size: 1rem; margin-top: 0.5rem; }
+    
+    /* Container and sections */
+    .container { 
+      margin: 2rem auto; 
+      padding: 0 1rem; 
+      max-width: 100%;
+    }
+    section { margin-bottom: 2.5rem; }
+    h3 { font-size: 1.25rem; margin-bottom: 1rem; }
+    
+    /* Card layouts */
+    .card-grid { 
+      grid-template-columns: 1fr; 
+      gap: 1rem; 
+    }
+    .card { 
+      padding: 1.25rem; 
+      min-height: auto;
+    }
+    
+    /* Skills grid */
+    .skills-grid { gap: 0.4rem; }
+    .skills-grid li { 
+      font-size: 0.85rem; 
+      padding: 0.3rem 0.6rem; 
+    }
+    
+    /* Theme toggle */
+    #theme-toggle { 
+      margin-left: 0.5rem; 
+      width: 36px; 
+      height: 36px; 
+      font-size: 1.25rem;
+    }
+    
+    /* Footer */
+    footer { 
+      padding: 1.5rem 1rem; 
+      font-size: 0.85rem; 
+    }
+  }
+  
+  /* Large Mobile (481px - 768px) */
+  @media (min-width: 481px) and (max-width: 768px) {
+    body { font-size: 15px; }
+    
+    /* Header optimizations */
+    header { padding: 1rem 1.5rem; }
+    nav h1 { font-size: 1.2rem; }
+    nav ul { 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      gap: 0.75rem; 
+    }
+    nav a { 
+      font-size: 0.9rem; 
+      padding: 0.5rem 0.75rem; 
+    }
+    
+    /* Hero section */
+    #hero { padding: 4rem 1.5rem 2.5rem; }
     h2 { font-size: 2rem; }
-    h3 { font-size: 1.5rem; }
+    
+    /* Container and sections */
+    .container { 
+      margin: 3rem auto; 
+      padding: 0 1.5rem; 
+    }
+    section { margin-bottom: 3rem; }
+    h3 { font-size: 1.4rem; }
+    
+    /* Card layouts - allow up to 2 columns on larger mobile */
+    .card-grid { 
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+      gap: 1.25rem; 
+    }
+    
+    /* Skills grid */
+    .skills-grid li { 
+      font-size: 0.9rem; 
+      padding: 0.35rem 0.7rem; 
+    }
+  }
+  
+  /* Tablet (769px - 1024px) */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    body { font-size: 16px; }
+    
+    /* Header optimizations */
+    header { padding: 1rem 2rem; }
+    nav ul { gap: 1rem; }
+    nav a { font-size: 0.95rem; }
+    
+    /* Hero section */
+    #hero { padding: 4.5rem 2rem 3rem; }
+    h2 { font-size: 2.25rem; }
+    
+    /* Container and sections */
+    .container { 
+      margin: 3.5rem auto; 
+      padding: 0 2rem; 
+      max-width: 90%;
+    }
+    section { margin-bottom: 3.5rem; }
+    h3 { font-size: 1.6rem; }
+    
+    /* Card layouts - optimize for tablet */
+    .card-grid { 
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+      gap: 1.5rem; 
+    }
+    
+    /* Skills grid - better wrapping for tablet */
+    .skills-grid { 
+      gap: 0.6rem; 
+    }
+    .skills-grid li { 
+      font-size: 0.95rem; 
+      padding: 0.4rem 0.8rem; 
+    }
+  }
+  
+  /* Legacy mobile support */
+  @media (max-width: 600px) {
+    /* Fallback for older responsive rules */
     nav ul { flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
   }
   
