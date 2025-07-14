@@ -19,6 +19,39 @@ fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/m
       if (headingEl) headingEl.textContent = text;
     });
 
+    function applyRandomSkillColors() {
+      const skills = document.querySelectorAll('.skills-grid li');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      const rawColors = getComputedStyle(document.body)
+        .getPropertyValue(isDarkMode ? '--tag-colors-dark' : '--tag-colors-light')
+        .split(',');
+
+      skills.forEach(tag => {
+        const color = rawColors[Math.floor(Math.random() * rawColors.length)].trim();
+        tag.style.backgroundColor = color;
+        tag.style.color = getContrastYIQ(color);
+      });
+
+      function getContrastYIQ(color) {
+        const rgb = getRGB(color);
+        const yiq = ((rgb.r * 299) + (rgb.g * 587) + (rgb.b * 114)) / 1000;
+        return yiq >= 128 ? '#1f2937' : '#ffffff';
+      }
+
+      function getRGB(color) {
+        const ctx = document.createElement('canvas').getContext('2d');
+        ctx.fillStyle = color;
+        const computed = ctx.fillStyle;
+        const hex = computed.startsWith('#') ? computed : '#000000';
+        const bigint = parseInt(hex.slice(1), 16);
+        return {
+          r: (bigint >> 16) & 255,
+          g: (bigint >> 8) & 255,
+          b: bigint & 255
+        };
+      }
+    }
+
     // About
     document.getElementById("about-text").textContent = data.about;
 
@@ -59,6 +92,8 @@ fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/m
       skillsList.appendChild(li);
     });
 
+    applyRandomSkillColors(); // Call after skills are added
+
     // Blogs
     const blogSection = document.getElementById("blog-list");
     data.blogs.forEach(article => {
@@ -75,6 +110,7 @@ fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/m
     const contactList = document.getElementById("contact-list");
     Object.entries(data.contact).forEach(([key, value]) => {
       if (key.endsWith("Label")) return;
+
       const labelKey = key + "Label";
       const label = data.contact[labelKey] || key;
 
@@ -105,59 +141,43 @@ fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/m
         emojiSpan.textContent = '🌙';
         localStorage.setItem('theme', 'light');
       }
+
+      // Reapply color to tech stack after theme changes
+      setTimeout(applyRandomSkillColors, 100);
     }
 
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      setTheme(data.defaultTheme || 'light');
-    }
+    setTheme(savedTheme || data.defaultTheme || 'light');
 
     themeToggle.addEventListener('click', () => {
-      if (body.classList.contains('dark-mode')) {
-        setTheme('light');
-      } else {
-        setTheme('dark');
-      }
-      setTimeout(applyRandomSkillColors, 100);
+      const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
+      setTheme(newTheme);
     });
-
-    // Apply pill colors *after* theme is correctly set
-    setTimeout(applyRandomSkillColors, 0);
-
-    // TECH STACK COLOR FUNCTION
-    function applyRandomSkillColors() {
-      const skills = document.querySelectorAll('.skills-grid li');
-      const isDarkMode = document.body.classList.contains('dark-mode');
-      const rawColors = getComputedStyle(document.body)
-        .getPropertyValue(isDarkMode ? '--tag-colors-dark' : '--tag-colors-light')
-        .split(',');
-
-      skills.forEach(tag => {
-        const color = rawColors[Math.floor(Math.random() * rawColors.length)].trim();
-        tag.style.backgroundColor = color;
-        tag.style.color = getContrastYIQ(color);
-      });
-
-      function getContrastYIQ(color) {
-        const rgb = getRGB(color);
-        const yiq = ((rgb.r * 299) + (rgb.g * 587) + (rgb.b * 114)) / 1000;
-        return yiq >= 128 ? '#1f2937' : '#ffffff';
-      }
-
-      function getRGB(color) {
-        const ctx = document.createElement('canvas').getContext('2d');
-        ctx.fillStyle = color;
-        const computed = ctx.fillStyle;
-        const hex = computed.startsWith('#') ? computed : '#000000';
-        const bigint = parseInt(hex.slice(1), 16);
-        return {
-          r: (bigint >> 16) & 255,
-          g: (bigint >> 8) & 255,
-          b: bigint & 255
-        };
-      }
-    }
   })
   .catch((err) => console.error("Error loading JSON:", err));
+
+  
+window.rainbow = (() => {
+  let intervalId = null;
+
+  return () => {
+    const tags = document.querySelectorAll('.skills-grid li');
+
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+      console.log("%c🌈 Rainbow mode deactivated!", "font-size: 14px; color: gray;");
+      return;
+    }
+
+    console.log("%c🌈 Rainbow mode activated!", "font-size: 14px; color: hotpink;");
+
+    intervalId = setInterval(() => {
+      tags.forEach((tag, i) => {
+        const hue = Math.floor(Math.random() * 360);
+        tag.style.backgroundColor = `hsl(${hue}, 100%, 70%)`;
+        tag.style.color = '#111827';
+      });
+    }, 250); // 0.25 seconds
+  };
+})();
