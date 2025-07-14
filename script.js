@@ -156,7 +156,7 @@ fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/m
   })
   .catch((err) => console.error("Error loading JSON:", err));
 
-  
+   
 window.rainbow = (() => {
   let intervalId = null;
 
@@ -181,3 +181,12 @@ window.rainbow = (() => {
     }, 250); // 0.25 seconds
   };
 })();
+
+console.log(
+  "%cLooking for Vulnerabilities? Check out the code at: https://github.com/Aryan-401/PortfolioWebsite",
+  "color: #3b82f6; font-weight: bold; font-size: 14px;"
+);
+console.log(
+  "%cTry typing 'rainbow()' in here!",
+  "color: #14b8a6; font-size: 14px;"
+);
