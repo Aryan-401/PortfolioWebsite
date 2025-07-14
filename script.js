@@ -19,61 +19,24 @@ fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/m
       if (headingEl) headingEl.textContent = text;
     });
 
-    function applyRandomSkillColors() {
-      const skills = document.querySelectorAll('.skills-grid li');
-      const isDarkMode = document.body.classList.contains('dark-mode');
-      const rawColors = getComputedStyle(document.body)
-  .getPropertyValue(isDarkMode ? '--tag-colors-dark' : '--tag-colors-light')
-  .split(',');
-    
-      skills.forEach(tag => {
-        const color = rawColors[Math.floor(Math.random() * rawColors.length)].trim();
-        tag.style.backgroundColor = color;
-        tag.style.color = getContrastYIQ(color);
-      });
-    
-      function getContrastYIQ(color) {
-        const rgb = getRGB(color);
-        const yiq = ((rgb.r * 299) + (rgb.g * 587) + (rgb.b * 114)) / 1000;
-        return yiq >= 128 ? '#1f2937' : '#ffffff';
-      }
-    
-      function getRGB(color) {
-        const ctx = document.createElement('canvas').getContext('2d');
-        ctx.fillStyle = color;
-        const computed = ctx.fillStyle;
-        const hex = computed.startsWith('#') ? computed : '#000000';
-        const bigint = parseInt(hex.slice(1), 16);
-        return {
-          r: (bigint >> 16) & 255,
-          g: (bigint >> 8) & 255,
-          b: bigint & 255
-        };
-      }
-    }
-    
-    // Initial call
-    applyRandomSkillColors();
-
     // About
     document.getElementById("about-text").textContent = data.about;
 
     // Experience
     const expList = document.getElementById("experience-list");
     data.experience.forEach(exp => {
-        const div = document.createElement("div");
-        div.className = "card";
-        div.innerHTML = `
-          ${exp.logo ? `<img src="${exp.logo}" alt="${exp.company} logo" class="exp-logo">` : ""}
-          <h4>${exp.role} – ${exp.company}</h4>
-          <p><strong>${exp.duration}</strong></p>
-          <p>${exp.description}</p>
-        `;
-        expList.appendChild(div);
-      });
-      
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        ${exp.logo ? `<img src="${exp.logo}" alt="${exp.company} logo" class="exp-logo">` : ""}
+        <h4>${exp.role} – ${exp.company}</h4>
+        <p><strong>${exp.duration}</strong></p>
+        <p>${exp.description}</p>
+      `;
+      expList.appendChild(div);
+    });
 
-    // Projects (Optional: if you want to re-add projects section)
+    // Projects
     const projList = document.getElementById("project-list");
     if (projList && data.projects) {
       data.projects.forEach(proj => {
@@ -108,64 +71,93 @@ fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/m
       blogSection.appendChild(div);
     });
 
-    // Contact (as cards)
+    // Contact
     const contactList = document.getElementById("contact-list");
     Object.entries(data.contact).forEach(([key, value]) => {
-    if (key.endsWith("Label")) return; // skip label keys
+      if (key.endsWith("Label")) return;
+      const labelKey = key + "Label";
+      const label = data.contact[labelKey] || key;
 
-    const labelKey = key + "Label";
-    const label = data.contact[labelKey] || key;
-
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
         <h4>${label}</h4>
         <a href="${key === 'email' ? `mailto:${value}` : value}" target="_blank">${value}</a>
-    `;
-    contactList.appendChild(div);
+      `;
+      contactList.appendChild(div);
     });
 
     // Footer
     document.getElementById("footer-text").textContent = data.footer;
 
-    // --- MODIFIED THEME TOGGLE LOGIC ---
+    // THEME TOGGLE
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
     const emojiSpan = themeToggle.querySelector('.emoji');
 
-    // Function to set the theme
     function setTheme(theme) {
       if (theme === 'dark') {
         body.classList.add('dark-mode');
-        emojiSpan.textContent = '💡'; // Lightbulb for dark mode
+        emojiSpan.textContent = '💡';
         localStorage.setItem('theme', 'dark');
       } else {
         body.classList.remove('dark-mode');
-        emojiSpan.textContent = '🌙'; // Moon for light mode
+        emojiSpan.textContent = '🌙';
         localStorage.setItem('theme', 'light');
       }
     }
 
-    // Check for saved theme preference or use default from data.json, else 'light'
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       setTheme(savedTheme);
     } else {
-      // Use the defaultTheme from data.json if available, otherwise 'light'
       setTheme(data.defaultTheme || 'light');
     }
 
-    // Event listener for the theme toggle button
     themeToggle.addEventListener('click', () => {
       if (body.classList.contains('dark-mode')) {
         setTheme('light');
       } else {
         setTheme('dark');
       }
-    
-      setTimeout(applyRandomSkillColors, 100); // Reapply bubble colors after theme switch
+      setTimeout(applyRandomSkillColors, 100);
     });
-    // --- END MODIFIED THEME TOGGLE LOGIC ---
 
+    // Apply pill colors *after* theme is correctly set
+    setTimeout(applyRandomSkillColors, 0);
+
+    // TECH STACK COLOR FUNCTION
+    function applyRandomSkillColors() {
+      const skills = document.querySelectorAll('.skills-grid li');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      const rawColors = getComputedStyle(document.body)
+        .getPropertyValue(isDarkMode ? '--tag-colors-dark' : '--tag-colors-light')
+        .split(',');
+
+      skills.forEach(tag => {
+        const color = rawColors[Math.floor(Math.random() * rawColors.length)].trim();
+        tag.style.backgroundColor = color;
+        tag.style.color = getContrastYIQ(color);
+      });
+
+      function getContrastYIQ(color) {
+        const rgb = getRGB(color);
+        const yiq = ((rgb.r * 299) + (rgb.g * 587) + (rgb.b * 114)) / 1000;
+        return yiq >= 128 ? '#1f2937' : '#ffffff';
+      }
+
+      function getRGB(color) {
+        const ctx = document.createElement('canvas').getContext('2d');
+        ctx.fillStyle = color;
+        const computed = ctx.fillStyle;
+        const hex = computed.startsWith('#') ? computed : '#000000';
+        const bigint = parseInt(hex.slice(1), 16);
+        return {
+          r: (bigint >> 16) & 255,
+          g: (bigint >> 8) & 255,
+          b: bigint & 255
+        };
+      }
+    }
   })
   .catch((err) => console.error("Error loading JSON:", err));
