@@ -54,9 +54,9 @@
         "link": "https://github.com/Aryan-401/TalkToDoc"
       },
       {
-        "name": "TalkToDoc",
-        "description": "Modular LLM based system that allows users to interact with over 20 types of documents, understand their content, and extract information.",
-        "link": "https://github.com/Aryan-401/TalkToDoc"
+        "name": "PlanAndEval",
+        "description": "An implementation of the Plan-and-Execute AI agent pattern using LangGraph. This system breaks down complex tasks into manageable steps, executes them sequentially, and adapts the plan based on intermediate results.",
+        "link": "https://github.com/Aryan-401/PlanAndReEval"
       }
     ],
     "skills": [
