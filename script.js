@@ -19,6 +19,42 @@ fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/m
       if (headingEl) headingEl.textContent = text;
     });
 
+    function applyRandomSkillColors() {
+      const skills = document.querySelectorAll('.skills-grid li');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      const rawColors = getComputedStyle(document.body)
+  .getPropertyValue(isDarkMode ? '--tag-colors-dark' : '--tag-colors-light')
+  .split(',');
+    
+      skills.forEach(tag => {
+        const color = rawColors[Math.floor(Math.random() * rawColors.length)].trim();
+        tag.style.backgroundColor = color;
+        tag.style.color = getContrastYIQ(color);
+      });
+    
+      function getContrastYIQ(color) {
+        const rgb = getRGB(color);
+        const yiq = ((rgb.r * 299) + (rgb.g * 587) + (rgb.b * 114)) / 1000;
+        return yiq >= 128 ? '#1f2937' : '#ffffff';
+      }
+    
+      function getRGB(color) {
+        const ctx = document.createElement('canvas').getContext('2d');
+        ctx.fillStyle = color;
+        const computed = ctx.fillStyle;
+        const hex = computed.startsWith('#') ? computed : '#000000';
+        const bigint = parseInt(hex.slice(1), 16);
+        return {
+          r: (bigint >> 16) & 255,
+          g: (bigint >> 8) & 255,
+          b: bigint & 255
+        };
+      }
+    }
+    
+    // Initial call
+    applyRandomSkillColors();
+
     // About
     document.getElementById("about-text").textContent = data.about;
 
@@ -126,6 +162,8 @@ fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/m
       } else {
         setTheme('dark');
       }
+    
+      setTimeout(applyRandomSkillColors, 100); // Reapply bubble colors after theme switch
     });
     // --- END MODIFIED THEME TOGGLE LOGIC ---
 

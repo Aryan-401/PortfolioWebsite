@@ -1,345 +1,331 @@
 /* Base */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Inter', sans-serif;
-    background: #f9fafb;
-    color: #1f2937;
-    scroll-behavior: smooth;
-    line-height: 1.6;
-    font-size: 16px;
-    transition: background 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
-  }
-  
-  h1, h2, h3, h4 {
-    font-weight: 600;
-    color: #111827;
-    transition: color 0.3s ease; /* Smooth transition for theme change */
-  }
-  
-  h2 { font-size: 2.5rem; }
-  h3 { font-size: 1.75rem; margin-bottom: 1rem; }
-  
-  /* Header */
-  header {
-    background-color: #ffffff;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for theme change */
-  }
-  
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  
-  nav h1 {
-    font-size: 1.25rem;
-  }
-  
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-  }
-  
-  nav a {
-    text-decoration: none;
-    color: #1f2937;
-    font-weight: 500;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    transition: background 0.2s, color 0.2s;
-  }
-  
-  nav a:hover {
-    background: #e0f2fe;
-    color: #0369a1;
-  }
-  
-  /* Hero */
-  #hero {
-    background: linear-gradient(to right, #e0f2fe, #f0f9ff);
-    color: #111827;
-    padding: 5rem 1rem 3rem;
-    text-align: center;
-    transition: background 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
-  }
-  
-  .container {
-    max-width: 960px;
-    margin: 4rem auto;
-    padding: 0 1rem;
-  }
-  
-  section {
-    margin-bottom: 4rem;
-  }
-  
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-  
-  .card {
-    background: #ffffff;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    border-left: 5px solid #3b82f6;
-    position: relative;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, border-color 0.3s ease; /* Smooth transition for theme change */
-    min-height: 140px;
-  }
-  
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  /* Justify all text within cards */
-  .card p {
-      text-align: justify;
-      margin-bottom: 4rem; /* Changed to 4rem for a larger gap */
-  }
-  
-  .skills-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    padding-top: 1rem;
-  }
-  
-  .skills-grid li {
-    background: #dbeafe;
-    color: #1e40af;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.95rem;
-    border-radius: 1rem;
-    font-weight: 500;
-    list-style: none;
-    transition: background 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
-  }
-  
-  #contact a {
-    color: #0369a1;
-    text-decoration: none;
-    transition: color 0.3s ease; /* Smooth transition for theme change */
-  }
-  
-  #contact a:hover {
-    text-decoration: underline;
-  }
-  
-  footer {
-    background: #ffffff;
-    text-align: center;
-    padding: 2rem 1rem;
-    margin-top: 4rem;
-    color: #6b7280;
-    font-size: 0.9rem;
-    transition: background 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
-  }
-  
-  .exp-logo {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 100px;
-    height: 32px;
-    object-fit: contain;
-    border-radius: 4px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-  }
-  
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  .container > * {
-    animation: fadeInUp 0.5s ease-in-out both;
-  }
-  
-  .blog-card {
-    background: #ffffff;
-    padding: 1.25rem 1.5rem;
-    border-left: 5px solid #14b8a6;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, border-color 0.3s ease; /* Smooth transition for theme change */
-  }
-  
-  .blog-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  }
-  
-  .blog-card a {
-    text-decoration: none;
-    font-weight: 600;
-    color: #0f766e;
-    display: inline-block;
-    margin-top: 0.5rem;
-    transition: color 0.3s ease; /* Smooth transition for theme change */
-  }
-  
-  @media (max-width: 600px) {
-    h2 { font-size: 2rem; }
-    h3 { font-size: 1.5rem; }
-    nav ul { flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
-  }
-  
-  .exp-logo {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: auto;
-    max-width: 100px;
-    max-height: 40px;
-    object-fit: contain;
-  }
-  
-  #about-text {
-    text-align: justify;
-  }
-  
-  /* Dark Mode Styles */
-  body.dark-mode {
-    background: #1a202c; /* Dark background */
-    color: #e2e8f0; /* Light text */
-  }
-  
-  body.dark-mode h1,
-  body.dark-mode h2,
-  body.dark-mode h3,
-  body.dark-mode h4 {
-    color: #f7fafc; /* Lighter headings */
-  }
-  
-  body.dark-mode header {
-    background-color: #2d3748; /* Darker header */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  }
-  
-  body.dark-mode nav a {
-    color: #cbd5e0; /* Lighter nav links */
-  }
-  
-  body.dark-mode nav a:hover {
-    background: #4a5568; /* Darker hover background */
-    color: #e2e8f0; /* Lighter hover text */
-  }
-  
-  body.dark-mode #hero {
-    background: linear-gradient(to right, #2d3748, #4a5568); /* Darker hero gradient */
-    color: #f7fafc;
-  }
-  
-  body.dark-mode .card,
-  body.dark-mode .blog-card {
-    background: #2d3748; /* Darker card background */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  }
-  
-  body.dark-mode .card:hover,
-  body.dark-mode .blog-card:hover {
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-  }
-  
-  body.dark-mode .skills-grid li {
-    background: #4a5568; /* Darker skill tag background */
-    color: #f7fafc; /* Lighter skill tag text */
-  }
-  
-  body.dark-mode #contact a {
-    color: #90cdf4; /* Lighter contact links */
-  }
-  
-  body.dark-mode footer {
-    background: #2d3748; /* Darker footer */
-    color: #a0aec0; /* Lighter footer text */
-  }
-  
-  body.dark-mode .blog-card a {
-    color: #63b3ed; /* Lighter blog link color */
-  }
-  
-  /* Theme Toggle Button Styles */
-  #theme-toggle {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    margin-left: 1rem;
-    padding: 0.5rem;
-    border-radius: 50%;
-    transition: background 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px; /* Make the button a fixed size */
-    height: 40px; /* Make the button a fixed size */
-  }
-  
-  #theme-toggle:hover {
-    background: rgba(0, 0, 0, 0.1);
-  }
-  
-  body.dark-mode #theme-toggle:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-  
-  #theme-toggle .emoji {
-    filter: grayscale(1); /* Desaturate the emoji by default */
-    transition: filter 0.3s ease;
-  }
-  
-  body.dark-mode #theme-toggle .emoji {
-    filter: none; /* Make emoji colorful in dark mode */
-  }
+:root {
+  --tag-colors-light: #dbeafe, #fcd34d, #6ee7b7, #fde68a, #fca5a5, #a5b4fc, #f9a8d4;
+}
+
+body.dark-mode {
+  --tag-colors-dark: #4a5568, #d97706, #047857, #78350f, #7f1d1d, #3730a3, #9d174d;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f9fafb;
+  color: #1f2937;
+  scroll-behavior: smooth;
+  line-height: 1.6;
+  font-size: 16px;
+  transition: background 0.3s ease, color 0.3s ease;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+  color: #111827;
+  transition: color 0.3s ease;
+}
+
+h2 { font-size: 2.5rem; }
+h3 { font-size: 1.75rem; margin-bottom: 1rem; }
+
+header {
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+nav h1 {
+  font-size: 1.25rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #1f2937;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+nav a:hover {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+#hero {
+  background: linear-gradient(to right, #e0f2fe, #f0f9ff);
+  color: #111827;
+  padding: 5rem 1rem 3rem;
+  text-align: center;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 960px;
+  margin: 4rem auto;
+  padding: 0 1rem;
+}
+
+section {
+  margin-bottom: 4rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-left: 5px solid #3b82f6;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, border-color 0.3s ease;
+  min-height: 140px;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.card p {
+  text-align: justify;
+  margin-bottom: 4rem;
+}
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 1rem;
+}
+
+.skills-grid li {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.95rem;
+  border-radius: 1rem;
+  font-weight: 500;
+  list-style: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+#contact a {
+  color: #0369a1;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+#contact a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  background: #ffffff;
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-top: 4rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.exp-logo {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: auto;
+  max-width: 100px;
+  max-height: 40px;
+  object-fit: contain;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.container > * {
+  animation: fadeInUp 0.5s ease-in-out both;
+}
+
+.blog-card {
+  background: #ffffff;
+  padding: 1.25rem 1.5rem;
+  border-left: 5px solid #14b8a6;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.blog-card a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #0f766e;
+  display: inline-block;
+  margin-top: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.5rem; }
+  nav ul { flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+}
+
+#about-text {
+  text-align: justify;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background: #1a202c;
+  color: #e2e8f0;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4 {
+  color: #f7fafc;
+}
+
+body.dark-mode header {
+  background-color: #2d3748;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+body.dark-mode nav a {
+  color: #cbd5e0;
+}
+
+body.dark-mode nav a:hover {
+  background: #4a5568;
+  color: #e2e8f0;
+}
+
+body.dark-mode #hero {
+  background: linear-gradient(to right, #2d3748, #4a5568);
+  color: #f7fafc;
+}
+
+body.dark-mode .card,
+body.dark-mode .blog-card {
+  background: #2d3748;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .card:hover,
+body.dark-mode .blog-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+body.dark-mode #contact a {
+  color: #90cdf4;
+}
+
+body.dark-mode footer {
+  background: #2d3748;
+  color: #a0aec0;
+}
+
+body.dark-mode .blog-card a {
+  color: #63b3ed;
+}
+
+#theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+#theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode #theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#theme-toggle .emoji {
+  filter: grayscale(1);
+  transition: filter 0.3s ease;
+}
+
+body.dark-mode #theme-toggle .emoji {
+  filter: none;
+}
 
 /* Project Button Styles */
 .project-button {
   display: inline-block;
-  background-color: #3b82f6; /* Primary blue for buttons */
-  color: #ffffff !important; /* White text for buttons, !important to override existing link color */
+  background-color: #3b82f6;
+  color: #ffffff !important;
   padding: 0.75rem 1.25rem;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-
-  position: absolute; /* Position relative to the card */
-  bottom: 1.5rem; /* 1.5rem from the bottom of the card */
-  left: 1.5rem; /* 1.5rem from the left of the card */
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
 }
 
 .project-button:hover {
-  background-color: #2563eb; /* Darker blue on hover */
+  background-color: #2563eb;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* Dark Mode Project Button Styles */
 body.dark-mode .project-button {
-  background-color: #63b3ed; /* Lighter blue for dark mode button */
-  color: #1a202c !important; /* Dark text for dark mode button */
+  background-color: #63b3ed;
+  color: #1a202c !important;
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 body.dark-mode .project-button:hover {
-  background-color: #4299e1; /* Slightly darker light blue on hover in dark mode */
+  background-color: #4299e1;
   box-shadow: 0 4px 8px rgba(0,0,0,0.4);
 }

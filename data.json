@@ -55,7 +55,7 @@
       },
       {
         "name": "PlanAndEval",
-        "description": "An implementation of the Plan-and-Execute AI agent pattern using LangGraph. This system breaks down complex tasks into manageable steps, executes them sequentially, and adapts the plan based on intermediate results.",
+        "description": "An implemen tation of the Plan-and-Execute AI agent pattern using LangGraph. This system breaks down complex tasks into manageable steps, executes them sequentially, and adapts the plan based on intermediate results.",
         "link": "https://github.com/Aryan-401/PlanAndReEval"
       }
     ],
