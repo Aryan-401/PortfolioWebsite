@@ -94,17 +94,8 @@ fetch("./data.json")
 
     applyRandomSkillColors(); // Call after skills are added
 
-    // Blogs
-    const blogSection = document.getElementById("blog-list");
-    data.blogs.forEach(article => {
-      const div = document.createElement("div");
-      div.className = "blog-card";
-      div.innerHTML = `
-        <h4>${article.title}</h4>
-        <a href="${article.link}" target="_blank">Read Article</a>
-      `;
-      blogSection.appendChild(div);
-    });
+    // Blogs - Load dynamically from Hashnode
+    loadBlogPosts(data.blogs);
 
     // Contact
     const contactList = document.getElementById("contact-list");
@@ -361,3 +352,165 @@ document.getElementById('help-dialog').addEventListener('click', function(e) {
     closeHelpDialog();
   }
 });
+
+// Dynamic Blog Fetching with Caching
+const CACHE_KEY = 'hashnode_posts_cache';
+const CACHE_TTL = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+
+async function fetchHashnodePosts() {
+  // Check cache first
+  const cached = getCachedPosts();
+  if (cached) {
+    return cached;
+  }
+
+  try {
+    const query = `
+      query Publication {
+        publication(host: "aryan401.hashnode.dev") {
+          isTeam
+          title
+          posts(first: 10) {
+            edges {
+              node {
+                title
+                url
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const response = await fetch('https://gql.hashnode.com/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query })
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.errors) {
+      throw new Error(`GraphQL errors: ${JSON.stringify(data.errors)}`);
+    }
+
+    const posts = data.data.publication.posts.edges.map(edge => ({
+      title: edge.node.title,
+      link: edge.node.url
+    }));
+
+    // Cache the results
+    setCachedPosts(posts);
+    return posts;
+  } catch (error) {
+    console.error('Error fetching Hashnode posts:', error);
+    return null;
+  }
+}
+
+function getCachedPosts() {
+  try {
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (!cached) return null;
+
+    const { timestamp, posts } = JSON.parse(cached);
+    const now = Date.now();
+
+    // Check if cache is still valid (within TTL)
+    if (now - timestamp < CACHE_TTL) {
+      console.log('Using cached blog posts');
+      return posts;
+    } else {
+      // Cache expired, remove it
+      localStorage.removeItem(CACHE_KEY);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error reading cache:', error);
+    localStorage.removeItem(CACHE_KEY);
+    return null;
+  }
+}
+
+function setCachedPosts(posts) {
+  try {
+    const cacheData = {
+      timestamp: Date.now(),
+      posts: posts
+    };
+    localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+    console.log('Blog posts cached successfully');
+  } catch (error) {
+    console.error('Error setting cache:', error);
+  }
+}
+
+function renderBlogPosts(posts) {
+  const blogSection = document.getElementById("blog-list");
+  
+  // Clear existing content
+  blogSection.innerHTML = '';
+  
+  if (!posts || posts.length === 0) {
+    const div = document.createElement("div");
+    div.className = "blog-card";
+    div.innerHTML = `
+      <h4>No articles found</h4>
+      <p>Check back later for new blog posts!</p>
+    `;
+    blogSection.appendChild(div);
+    return;
+  }
+
+  posts.forEach(article => {
+    const div = document.createElement("div");
+    div.className = "blog-card";
+    div.innerHTML = `
+      <h4>${article.title}</h4>
+      <a href="${article.link}" target="_blank">Read Article</a>
+    `;
+    blogSection.appendChild(div);
+  });
+}
+
+function showBlogLoadingState() {
+  const blogSection = document.getElementById("blog-list");
+  blogSection.innerHTML = `
+    <div class="blog-card loading-state">
+      <div class="loading-spinner"></div>
+      <p>Loading latest blog posts...</p>
+    </div>
+  `;
+}
+
+async function loadBlogPosts(fallbackPosts) {
+  console.log('Starting blog posts loading...');
+  
+  // Show loading state
+  showBlogLoadingState();
+  
+  try {
+    // Try to fetch posts from Hashnode
+    const hashnodePosts = await fetchHashnodePosts();
+    
+    if (hashnodePosts && hashnodePosts.length > 0) {
+      console.log('Successfully loaded blog posts from Hashnode API:', hashnodePosts);
+      renderBlogPosts(hashnodePosts);
+    } else {
+      // Fallback to static data
+      console.log('No posts from API, using fallback data:', fallbackPosts);
+      renderBlogPosts(fallbackPosts);
+    }
+  } catch (error) {
+    console.error('Error loading blog posts:', error);
+    // Fallback to static data
+    renderBlogPosts(fallbackPosts);
+    console.log('Using fallback blog posts due to error');
+  }
+}
