@@ -7,7 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark-mode"> <header>
+<body class="dark-mode">
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+  
+  <header>
     <nav>
       <h1 id="site-name">Aryan Garg</h1>
       <ul id="navbar"></ul>
@@ -23,33 +27,38 @@
   </section>
 
   <div class="container">
-    <section id="about">
+    <section id="about" class="section-fade-in">
       <h3 id="about-heading">About</h3>
       <p id="about-text"></p>
     </section>
 
-    <section id="experience">
+    <section id="experience" class="section-fade-in">
       <h3 id="experience-heading">Experience</h3>
       <div id="experience-list" class="card-grid"></div>
     </section>
 
-    <section id="projects">
+    <section id="projects" class="section-fade-in">
         <h3 id="projects-heading">Projects</h3>
         <div id="project-list" class="card-grid"></div>
+        <div class="github-pill-container">
+          <a href="https://huggingface.co/Aryan-401" target="_blank" class="github-pill">
+            🧊 This is just the tip of the iceberg, you can find my Machine Learning Models on Huggingface 🤗
+          </a>
+        </div>
       </section>
 
 
-    <section id="blogs">
+    <section id="blogs" class="section-fade-in">
       <h3 id="blogs-heading">Blog Articles</h3>
       <div id="blog-list" class="card-grid"></div>
     </section>
 
-    <section id="skills">
+    <section id="skills" class="section-fade-in">
         <h3 id="skills-heading">Tech Stack</h3>
         <ul id="skills-list" class="skills-grid"></ul>
       </section>
 
-    <section id="contact">
+    <section id="contact" class="section-fade-in">
         <h3 id="contact-heading">Contact</h3>
         <div id="contact-list" class="card-grid"></div>
       </section>
@@ -59,6 +68,39 @@
   <footer>
     <p id="footer-text">© 2025 Aryan Garg. All rights reserved.</p>
   </footer>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    ↑
+  </button>
+
+  <!-- Help Dialog -->
+  <div class="help-dialog" id="help-dialog" style="display: none;">
+    <div class="help-content">
+      <div class="help-header">
+        <h3>🚀 Keyboard Shortcuts</h3>
+        <button class="help-close" id="help-close" aria-label="Close help">×</button>
+      </div>
+      <div class="help-list">
+        <div class="help-item">
+          <kbd>T</kbd>
+          <span>Scroll to top</span>
+        </div>
+        <div class="help-item">
+          <kbd>L</kbd>
+          <span>Toggle light/dark mode</span>
+        </div>
+        <div class="help-item">
+          <kbd>R</kbd>
+          <span>Toggle rainbow mode</span>
+        </div>
+        <div class="help-item">
+          <kbd>?</kbd>
+          <span>Show this help</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

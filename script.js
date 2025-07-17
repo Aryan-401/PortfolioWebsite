@@ -1,4 +1,4 @@
-fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/main/data.json")
+fetch("./data.json")
   .then((res) => res.json())
   .then((data) => {
     document.getElementById("site-name").textContent = data.siteName;
@@ -74,7 +74,7 @@ fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/m
     if (projList && data.projects) {
       data.projects.forEach(proj => {
         const div = document.createElement("div");
-        div.className = "card";
+        div.className = "card project-card";
         div.innerHTML = `
           <h4>${proj.name}</h4>
           <p>${proj.description}</p>
@@ -94,17 +94,8 @@ fetch("https://raw.githubusercontent.com/Aryan-401/PortfolioWebsite/refs/heads/m
 
     applyRandomSkillColors(); // Call after skills are added
 
-    // Blogs
-    const blogSection = document.getElementById("blog-list");
-    data.blogs.forEach(article => {
-      const div = document.createElement("div");
-      div.className = "blog-card";
-      div.innerHTML = `
-        <h4>${article.title}</h4>
-        <a href="${article.link}" target="_blank">Read Article</a>
-      `;
-      blogSection.appendChild(div);
-    });
+    // Blogs - Load dynamically from Hashnode
+    loadBlogPosts(data.blogs);
 
     // Contact
     const contactList = document.getElementById("contact-list");
@@ -190,3 +181,336 @@ console.log(
   "%cTry typing 'rainbow()' in here!",
   "color: #14b8a6; font-size: 14px;"
 );
+
+// Scroll Progress Indicator
+function updateScrollProgress() {
+  const scrollTop = window.pageYOffset;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = (scrollTop / docHeight) * 100;
+  document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+}
+
+// Back to Top Button
+function updateBackToTopButton() {
+  const backToTopButton = document.getElementById('back-to-top');
+  if (window.pageYOffset > 300) {
+    backToTopButton.classList.add('visible');
+  } else {
+    backToTopButton.classList.remove('visible');
+  }
+}
+
+// Smooth Scroll Animation Observer
+function initScrollAnimations() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.section-fade-in').forEach(section => {
+    observer.observe(section);
+  });
+}
+
+// Event Listeners
+window.addEventListener('scroll', () => {
+  updateScrollProgress();
+  updateBackToTopButton();
+});
+
+document.getElementById('back-to-top').addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+
+// Initialize scroll animations when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  initScrollAnimations();
+});
+
+// Notification system
+function showNotification(message, type = 'info') {
+  const notification = document.createElement('div');
+  notification.className = `notification notification-${type}`;
+  notification.textContent = message;
+  
+  // Add notification styles
+  notification.style.cssText = `
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    background: ${type === 'success' ? '#10b981' : '#3b82f6'};
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1001;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    max-width: 300px;
+    font-size: 0.9rem;
+  `;
+  
+  document.body.appendChild(notification);
+  
+  // Show notification
+  setTimeout(() => {
+    notification.style.transform = 'translateX(0)';
+  }, 100);
+  
+  // Hide notification after 5 seconds
+  setTimeout(() => {
+    notification.style.transform = 'translateX(100%)';
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 300);
+  }, 5000);
+}
+
+
+// Keyboard Navigation Support
+document.addEventListener('keydown', function(e) {
+  // Press 'T' to go to top
+  if (e.key.toLowerCase() === 't' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    showNotification('Scrolled to top! 🔝', 'info');
+  }
+  
+  // Press 'L' to toggle light/dark mode
+  if (e.key.toLowerCase() === 'l' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+    e.preventDefault();
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+      themeToggle.click();
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      showNotification(isDarkMode ? 'Switched to dark mode! 🌙' : 'Switched to light mode! ☀️', 'info');
+    }
+  }
+  
+  // Press 'R' for rainbow mode
+  if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+    e.preventDefault();
+    if (window.rainbow) {
+      window.rainbow();
+    }
+  }
+  
+  // Press '?' to show help
+  if (e.key === '?' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+    e.preventDefault();
+    toggleHelpDialog();
+  }
+  
+  // Press 'Escape' to close help
+  if (e.key === 'Escape') {
+    closeHelpDialog();
+  }
+});
+
+function isInputFocused() {
+  const activeElement = document.activeElement;
+  return activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
+}
+
+// Help Dialog Functions
+function toggleHelpDialog() {
+  const helpDialog = document.getElementById('help-dialog');
+  if (helpDialog.style.display === 'none') {
+    showHelpDialog();
+  } else {
+    closeHelpDialog();
+  }
+}
+
+function showHelpDialog() {
+  const helpDialog = document.getElementById('help-dialog');
+  helpDialog.style.display = 'flex';
+  setTimeout(() => helpDialog.classList.add('visible'), 10);
+}
+
+function closeHelpDialog() {
+  const helpDialog = document.getElementById('help-dialog');
+  helpDialog.classList.remove('visible');
+  setTimeout(() => helpDialog.style.display = 'none', 300);
+}
+
+// Help dialog event listeners
+document.getElementById('help-close').addEventListener('click', closeHelpDialog);
+document.getElementById('help-dialog').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeHelpDialog();
+  }
+});
+
+// Dynamic Blog Fetching with Caching
+const CACHE_KEY = 'hashnode_posts_cache';
+const CACHE_TTL = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+
+async function fetchHashnodePosts() {
+  // Check cache first
+  const cached = getCachedPosts();
+  if (cached) {
+    return cached;
+  }
+
+  try {
+    const query = `
+      query Publication {
+        publication(host: "aryan401.hashnode.dev") {
+          isTeam
+          title
+          posts(first: 6) {
+            edges {
+              node {
+                title
+                url
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const response = await fetch('https://gql.hashnode.com/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query })
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.errors) {
+      throw new Error(`GraphQL errors: ${JSON.stringify(data.errors)}`);
+    }
+
+    const posts = data.data.publication.posts.edges.map(edge => ({
+      title: edge.node.title,
+      link: edge.node.url
+    }));
+
+    // Cache the results
+    setCachedPosts(posts);
+    return posts;
+  } catch (error) {
+    console.error('Error fetching Hashnode posts:', error);
+    return null;
+  }
+}
+
+function getCachedPosts() {
+  try {
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (!cached) return null;
+
+    const { timestamp, posts } = JSON.parse(cached);
+    const now = Date.now();
+
+    // Check if cache is still valid (within TTL)
+    if (now - timestamp < CACHE_TTL) {
+      console.log('Using cached blog posts');
+      return posts;
+    } else {
+      // Cache expired, remove it
+      localStorage.removeItem(CACHE_KEY);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error reading cache:', error);
+    localStorage.removeItem(CACHE_KEY);
+    return null;
+  }
+}
+
+function setCachedPosts(posts) {
+  try {
+    const cacheData = {
+      timestamp: Date.now(),
+      posts: posts
+    };
+    localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+    console.log('Blog posts cached successfully');
+  } catch (error) {
+    console.error('Error setting cache:', error);
+  }
+}
+
+function renderBlogPosts(posts) {
+  const blogSection = document.getElementById("blog-list");
+  
+  // Clear existing content
+  blogSection.innerHTML = '';
+  
+  if (!posts || posts.length === 0) {
+    const div = document.createElement("div");
+    div.className = "blog-card";
+    div.innerHTML = `
+      <h4>No articles found</h4>
+      <p>Check back later for new blog posts!</p>
+    `;
+    blogSection.appendChild(div);
+    return;
+  }
+
+  posts.forEach(article => {
+    const div = document.createElement("div");
+    div.className = "blog-card";
+    div.innerHTML = `
+      <h4>${article.title}</h4>
+      <a href="${article.link}" target="_blank">Read Article</a>
+    `;
+    blogSection.appendChild(div);
+  });
+}
+
+function showBlogLoadingState() {
+  const blogSection = document.getElementById("blog-list");
+  blogSection.innerHTML = `
+    <div class="blog-card loading-state">
+      <div class="loading-spinner"></div>
+      <p>Loading latest blog posts...</p>
+    </div>
+  `;
+}
+
+async function loadBlogPosts(fallbackPosts) {
+  console.log('Starting blog posts loading...');
+  
+  // Show loading state
+  showBlogLoadingState();
+  
+  try {
+    // Try to fetch posts from Hashnode
+    const hashnodePosts = await fetchHashnodePosts();
+    
+    if (hashnodePosts && hashnodePosts.length > 0) {
+      console.log('Successfully loaded blog posts from Hashnode API:', hashnodePosts);
+      renderBlogPosts(hashnodePosts);
+    } else {
+      // Fallback to static data
+      console.log('No posts from API, using fallback data:', fallbackPosts);
+      renderBlogPosts(fallbackPosts);
+    }
+  } catch (error) {
+    console.error('Error loading blog posts:', error);
+    // Fallback to static data
+    renderBlogPosts(fallbackPosts);
+    console.log('Using fallback blog posts due to error');
+  }
+}
