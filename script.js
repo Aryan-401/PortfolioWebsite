@@ -296,6 +296,17 @@ document.addEventListener('keydown', function(e) {
     showNotification('Scrolled to top! 🔝', 'info');
   }
   
+  // Press 'L' to toggle light/dark mode
+  if (e.key.toLowerCase() === 'l' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+    e.preventDefault();
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+      themeToggle.click();
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      showNotification(isDarkMode ? 'Switched to dark mode! 🌙' : 'Switched to light mode! ☀️', 'info');
+    }
+  }
+  
   // Press 'R' for rainbow mode
   if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
     e.preventDefault();
