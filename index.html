@@ -7,7 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark-mode"> <header>
+<body class="dark-mode">
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+  
+  <header>
     <nav>
       <h1 id="site-name">Aryan Garg</h1>
       <ul id="navbar"></ul>
@@ -23,35 +27,73 @@
   </section>
 
   <div class="container">
-    <section id="about">
+    <section id="about" class="section-fade-in">
       <h3 id="about-heading">About</h3>
       <p id="about-text"></p>
     </section>
 
-    <section id="experience">
+    <section id="experience" class="section-fade-in">
       <h3 id="experience-heading">Experience</h3>
       <div id="experience-list" class="card-grid"></div>
     </section>
 
-    <section id="projects">
+    <section id="projects" class="section-fade-in">
         <h3 id="projects-heading">Projects</h3>
+        <div class="projects-header">
+          <div class="search-container">
+            <input type="text" id="project-search" placeholder="Search projects..." class="search-input">
+            <span class="search-icon">🔍</span>
+          </div>
+        </div>
         <div id="project-list" class="card-grid"></div>
+        <div id="no-projects" class="no-results" style="display: none;">
+          <p>No projects found matching your search.</p>
+        </div>
       </section>
 
 
-    <section id="blogs">
+    <section id="blogs" class="section-fade-in">
       <h3 id="blogs-heading">Blog Articles</h3>
       <div id="blog-list" class="card-grid"></div>
     </section>
 
-    <section id="skills">
+    <section id="skills" class="section-fade-in">
         <h3 id="skills-heading">Tech Stack</h3>
         <ul id="skills-list" class="skills-grid"></ul>
       </section>
 
-    <section id="contact">
+    <section id="contact" class="section-fade-in">
         <h3 id="contact-heading">Contact</h3>
-        <div id="contact-list" class="card-grid"></div>
+        <div class="contact-section">
+          <div id="contact-list" class="card-grid"></div>
+          <div class="contact-form-container">
+            <h4>Send me a message</h4>
+            <form id="contact-form" class="contact-form">
+              <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" id="name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject *</label>
+                <input type="text" id="subject" name="subject" required>
+              </div>
+              <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="submit-btn">
+                <span class="btn-text">Send Message</span>
+                <span class="btn-loading" style="display: none;">
+                  <span class="loading-animation"></span> Sending...
+                </span>
+              </button>
+            </form>
+          </div>
+        </div>
       </section>
       
   </div>
@@ -59,6 +101,11 @@
   <footer>
     <p id="footer-text">© 2025 Aryan Garg. All rights reserved.</p>
   </footer>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    ↑
+  </button>
 
   <script src="script.js"></script>
 </body>

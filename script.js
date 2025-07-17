@@ -74,7 +74,8 @@ fetch("./data.json")
     if (projList && data.projects) {
       data.projects.forEach(proj => {
         const div = document.createElement("div");
-        div.className = "card";
+        div.className = "card project-card";
+        div.dataset.searchText = `${proj.name} ${proj.description}`.toLowerCase();
         div.innerHTML = `
           <h4>${proj.name}</h4>
           <p>${proj.description}</p>
@@ -82,6 +83,9 @@ fetch("./data.json")
         `;
         projList.appendChild(div);
       });
+      
+      // Initialize project search
+      initProjectSearch();
     }
 
     // Skills
@@ -190,3 +194,176 @@ console.log(
   "%cTry typing 'rainbow()' in here!",
   "color: #14b8a6; font-size: 14px;"
 );
+
+// Scroll Progress Indicator
+function updateScrollProgress() {
+  const scrollTop = window.pageYOffset;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = (scrollTop / docHeight) * 100;
+  document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+}
+
+// Back to Top Button
+function updateBackToTopButton() {
+  const backToTopButton = document.getElementById('back-to-top');
+  if (window.pageYOffset > 300) {
+    backToTopButton.classList.add('visible');
+  } else {
+    backToTopButton.classList.remove('visible');
+  }
+}
+
+// Smooth Scroll Animation Observer
+function initScrollAnimations() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.section-fade-in').forEach(section => {
+    observer.observe(section);
+  });
+}
+
+// Event Listeners
+window.addEventListener('scroll', () => {
+  updateScrollProgress();
+  updateBackToTopButton();
+});
+
+document.getElementById('back-to-top').addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+
+// Initialize scroll animations when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  initScrollAnimations();
+});
+
+// Contact Form Handling
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const submitBtn = this.querySelector('.submit-btn');
+  const btnText = submitBtn.querySelector('.btn-text');
+  const btnLoading = submitBtn.querySelector('.btn-loading');
+  
+  // Show loading state
+  submitBtn.disabled = true;
+  btnText.style.display = 'none';
+  btnLoading.style.display = 'flex';
+  
+  // Get form data
+  const formData = new FormData(this);
+  const data = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    subject: formData.get('subject'),
+    message: formData.get('message')
+  };
+  
+  // Simulate form submission (replace with actual API call)
+  setTimeout(() => {
+    // Create mailto link as fallback
+    const mailtoLink = `mailto:aryan.raj.garg@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(
+      `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
+    )}`;
+    
+    // Open mailto link
+    window.location.href = mailtoLink;
+    
+    // Reset form
+    this.reset();
+    
+    // Show success message
+    showNotification('Message sent! Your email client should open.', 'success');
+    
+    // Reset button state
+    submitBtn.disabled = false;
+    btnText.style.display = 'inline';
+    btnLoading.style.display = 'none';
+  }, 1500);
+});
+
+// Notification system
+function showNotification(message, type = 'info') {
+  const notification = document.createElement('div');
+  notification.className = `notification notification-${type}`;
+  notification.textContent = message;
+  
+  // Add notification styles
+  notification.style.cssText = `
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    background: ${type === 'success' ? '#10b981' : '#3b82f6'};
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1001;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    max-width: 300px;
+    font-size: 0.9rem;
+  `;
+  
+  document.body.appendChild(notification);
+  
+  // Show notification
+  setTimeout(() => {
+    notification.style.transform = 'translateX(0)';
+  }, 100);
+  
+  // Hide notification after 5 seconds
+  setTimeout(() => {
+    notification.style.transform = 'translateX(100%)';
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 300);
+  }, 5000);
+}
+
+// Project Search Functionality
+function initProjectSearch() {
+  const searchInput = document.getElementById('project-search');
+  const projectCards = document.querySelectorAll('.project-card');
+  const noResults = document.getElementById('no-projects');
+  
+  if (!searchInput || !projectCards.length) return;
+  
+  searchInput.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase().trim();
+    let visibleCount = 0;
+    
+    projectCards.forEach(card => {
+      const searchText = card.dataset.searchText;
+      const matches = searchText.includes(searchTerm);
+      
+      if (matches) {
+        card.style.display = 'block';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    
+    // Show/hide no results message
+    if (visibleCount === 0 && searchTerm !== '') {
+      noResults.style.display = 'block';
+    } else {
+      noResults.style.display = 'none';
+    }
+  });
+}
