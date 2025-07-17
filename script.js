@@ -367,3 +367,89 @@ function initProjectSearch() {
     }
   });
 }
+
+// Keyboard Navigation Support
+document.addEventListener('keydown', function(e) {
+  // Press 'T' to go to top
+  if (e.key.toLowerCase() === 't' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    showNotification('Scrolled to top! 🔝', 'info');
+  }
+  
+  // Press '/' to focus search
+  if (e.key === '/' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+    e.preventDefault();
+    const searchInput = document.getElementById('project-search');
+    if (searchInput) {
+      searchInput.focus();
+      showNotification('Search projects... 🔍', 'info');
+    }
+  }
+  
+  // Press 'C' to focus contact form
+  if (e.key.toLowerCase() === 'c' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+    e.preventDefault();
+    const contactSection = document.getElementById('contact');
+    const nameInput = document.getElementById('name');
+    if (contactSection && nameInput) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => nameInput.focus(), 500);
+      showNotification('Ready to send a message! 📧', 'info');
+    }
+  }
+  
+  // Press 'R' for rainbow mode
+  if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+    e.preventDefault();
+    if (window.rainbow) {
+      window.rainbow();
+    }
+  }
+  
+  // Press '?' to show help
+  if (e.key === '?' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+    e.preventDefault();
+    toggleHelpDialog();
+  }
+  
+  // Press 'Escape' to close help
+  if (e.key === 'Escape') {
+    closeHelpDialog();
+  }
+});
+
+function isInputFocused() {
+  const activeElement = document.activeElement;
+  return activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
+}
+
+// Help Dialog Functions
+function toggleHelpDialog() {
+  const helpDialog = document.getElementById('help-dialog');
+  if (helpDialog.style.display === 'none') {
+    showHelpDialog();
+  } else {
+    closeHelpDialog();
+  }
+}
+
+function showHelpDialog() {
+  const helpDialog = document.getElementById('help-dialog');
+  helpDialog.style.display = 'flex';
+  setTimeout(() => helpDialog.classList.add('visible'), 10);
+}
+
+function closeHelpDialog() {
+  const helpDialog = document.getElementById('help-dialog');
+  helpDialog.classList.remove('visible');
+  setTimeout(() => helpDialog.style.display = 'none', 300);
+}
+
+// Help dialog event listeners
+document.getElementById('help-close').addEventListener('click', closeHelpDialog);
+document.getElementById('help-dialog').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeHelpDialog();
+  }
+});

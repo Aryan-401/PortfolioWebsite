@@ -643,3 +643,137 @@ body.dark-mode .search-icon {
 body.dark-mode .no-results {
   color: #a0aec0;
 }
+
+/* Help Dialog Styles */
+.help-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.help-dialog.visible {
+  opacity: 1;
+}
+
+.help-content {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.help-dialog.visible .help-content {
+  transform: scale(1);
+}
+
+.help-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.help-header h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.25rem;
+}
+
+.help-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6b7280;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.help-close:hover {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+.help-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.help-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.help-item kbd {
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-family: monospace;
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: #374151;
+  min-width: 2rem;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.help-item span {
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+
+/* Dark mode help dialog */
+body.dark-mode .help-content {
+  background: #2d3748;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .help-header {
+  border-bottom-color: #4a5568;
+}
+
+body.dark-mode .help-header h3 {
+  color: #f7fafc;
+}
+
+body.dark-mode .help-close {
+  color: #a0aec0;
+}
+
+body.dark-mode .help-close:hover {
+  background: #4a5568;
+  color: #f7fafc;
+}
+
+body.dark-mode .help-item kbd {
+  background: #4a5568;
+  border-color: #718096;
+  color: #e2e8f0;
+}
+
+body.dark-mode .help-item span {
+  color: #cbd5e0;
+}
