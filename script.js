@@ -370,7 +370,7 @@ async function fetchHashnodePosts() {
         publication(host: "aryan401.hashnode.dev") {
           isTeam
           title
-          posts(first: 10) {
+          posts(first: 6) {
             edges {
               node {
                 title
