@@ -441,45 +441,40 @@ body.dark-mode .blog-card:hover {
 }
 
 /* GitHub card styles */
-.github-card-container {
+.github-pill-container {
   margin-top: 2rem;
-  display: flex;
-  justify-content: center;
+  width: 100%;
 }
 
-.github-card {
-  max-width: 600px;
-  text-align: center;
+.github-pill {
+  display: block;
+  width: 100%;
+  padding: 1rem 2rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white !important;
-  border: none;
+  text-decoration: none;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
 }
 
-.github-card h4 {
-  color: white !important;
-  margin-bottom: 1rem;
-}
-
-.github-card p {
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 1.5rem;
-}
-
-.github-card .project-button {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-}
-
-.github-card .project-button:hover {
-  background: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.5);
+.github-pill:hover {
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  color: white !important;
 }
 
-body.dark-mode .github-card {
+body.dark-mode .github-pill {
   background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+}
+
+body.dark-mode .github-pill:hover {
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
 }
 
 /* Help Dialog Styles */
