@@ -373,6 +373,7 @@ async function fetchHashnodePosts() {
           posts(first: 6) {
             edges {
               node {
+                id
                 title
                 url
               }
