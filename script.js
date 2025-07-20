@@ -306,6 +306,12 @@ document.addEventListener('keydown', function(e) {
     }
   }
   
+  // Press 'B' to refresh blog posts
+  if (e.key.toLowerCase() === 'b' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+    e.preventDefault();
+    refreshBlogPosts();
+  }
+  
   // Press '?' to show help
   if (e.key === '?' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
     e.preventDefault();
@@ -512,5 +518,47 @@ async function loadBlogPosts(fallbackPosts) {
     // Fallback to static data
     renderBlogPosts(fallbackPosts);
     console.log('Using fallback blog posts due to error');
+  }
+}
+
+// Manual blog refresh function for discrete updating
+async function refreshBlogPosts() {
+  console.log('Manual blog refresh triggered');
+  
+  // Clear the existing cache
+  localStorage.removeItem(CACHE_KEY);
+  
+  // Show loading state
+  showBlogLoadingState();
+  showNotification('Refreshing blog posts...', 'info');
+  
+  try {
+    // Fetch fresh posts from Hashnode
+    const hashnodePosts = await fetchHashnodePosts();
+    
+    if (hashnodePosts && hashnodePosts.length > 0) {
+      console.log('Successfully refreshed blog posts from Hashnode API:', hashnodePosts);
+      renderBlogPosts(hashnodePosts);
+      showNotification('Blog posts refreshed! 📝', 'success');
+    } else {
+      // Fallback to static data from data.json
+      const response = await fetch('./data.json');
+      const data = await response.json();
+      console.log('No posts from API during refresh, using fallback data:', data.blogs);
+      renderBlogPosts(data.blogs);
+      showNotification('Blog posts refreshed from fallback data', 'info');
+    }
+  } catch (error) {
+    console.error('Error refreshing blog posts:', error);
+    // Fallback to static data from data.json
+    try {
+      const response = await fetch('./data.json');
+      const data = await response.json();
+      renderBlogPosts(data.blogs);
+      showNotification('Blog refresh failed, using cached data', 'info');
+    } catch (fallbackError) {
+      console.error('Error loading fallback data:', fallbackError);
+      showNotification('Failed to refresh blog posts', 'info');
+    }
   }
 }
