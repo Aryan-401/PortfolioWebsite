@@ -91,6 +91,7 @@ nav a:hover {
 
 section {
   margin-bottom: 4rem;
+  scroll-margin-top: 120px; /* Account for 104px header height + 16px spacing */
 }
 
 .card-grid {
