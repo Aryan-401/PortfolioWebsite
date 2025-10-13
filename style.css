@@ -83,6 +83,46 @@ nav a:hover {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.profile-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #ffffff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.profile-photo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+}
+
+.hero-text {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .hero-content {
+    flex-direction: row;
+    justify-content: center;
+    gap: 3rem;
+  }
+  
+  .hero-text {
+    text-align: left;
+  }
+}
+
 .container {
   max-width: 960px;
   margin: 4rem auto;
@@ -239,6 +279,15 @@ body.dark-mode nav a:hover {
 body.dark-mode #hero {
   background: linear-gradient(to right, #2d3748, #4a5568);
   color: #f7fafc;
+}
+
+body.dark-mode .profile-photo {
+  border-color: #4a5568;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+body.dark-mode .profile-photo:hover {
+  box-shadow: 0 12px 32px rgba(0,0,0,0.5);
 }
 
 body.dark-mode .card,
