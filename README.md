@@ -5,8 +5,10 @@ A modern, responsive portfolio website showcasing professional experience, proje
 ## 🌟 Features
 
 - **Responsive Design**: Optimized for all device sizes
+- **Profile Photo**: Professional circular photo in hero section
 - **Dynamic Content**: Content loaded from JSON configuration
 - **Modern UI**: Clean, professional design with smooth animations
+- **Dark/Light Mode**: Toggle between themes with full support
 - **Easy Customization**: Simply edit `data.json` to update content
 - **Blog Integration**: Links to external blog articles
 - **Contact Section**: Multiple ways to get in touch
@@ -77,6 +79,14 @@ All content is managed through the `data.json` file. Edit this file to customize
 - **Skills**: Technology stack and expertise
 - **Blog Articles**: Links to blog posts
 - **Contact Information**: Email, GitHub, LinkedIn
+
+### Updating Profile Photo
+
+To change the profile photo:
+1. Upload your photo to GitHub Issues or use any image hosting service
+2. Update the `src` attribute in `index.html` (line 26) with your image URL
+3. For best results, use a square image (recommended: 600x600px or larger)
+4. The image will automatically be displayed as a circular profile photo
 
 ### Example `data.json` structure:
 ```json

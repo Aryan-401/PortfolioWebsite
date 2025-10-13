@@ -7,10 +7,16 @@
 
 :root {
   --tag-colors-light: #dbeafe, #fcd34d, #6ee7b7, #fde68a, #fca5a5, #a5b4fc, #f9a8d4;
+  --profile-photo-border: #ffffff;
+  --profile-photo-shadow: rgba(0,0,0,0.15);
+  --profile-photo-shadow-hover: rgba(0,0,0,0.2);
 }
 
 body.dark-mode {
   --tag-colors-dark: #4a5568, #d97706, #047857, #78350f, #7f1d1d, #3730a3, #9d174d;
+  --profile-photo-border: #4a5568;
+  --profile-photo-shadow: rgba(0,0,0,0.4);
+  --profile-photo-shadow-hover: rgba(0,0,0,0.5);
 }
 
 body {
@@ -97,14 +103,14 @@ nav a:hover {
   height: 180px;
   border-radius: 50%;
   object-fit: cover;
-  border: 5px solid #ffffff;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border: 5px solid var(--profile-photo-border);
+  box-shadow: 0 8px 24px var(--profile-photo-shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .profile-photo:hover {
   transform: scale(1.05);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+  box-shadow: 0 12px 32px var(--profile-photo-shadow-hover);
 }
 
 .hero-text {
@@ -279,15 +285,6 @@ body.dark-mode nav a:hover {
 body.dark-mode #hero {
   background: linear-gradient(to right, #2d3748, #4a5568);
   color: #f7fafc;
-}
-
-body.dark-mode .profile-photo {
-  border-color: #4a5568;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-}
-
-body.dark-mode .profile-photo:hover {
-  box-shadow: 0 12px 32px rgba(0,0,0,0.5);
 }
 
 body.dark-mode .card,
