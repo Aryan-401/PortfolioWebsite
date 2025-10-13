@@ -83,8 +83,11 @@ All content is managed through the `data.json` file. Edit this file to customize
 ### Updating Profile Photo
 
 To change the profile photo:
-1. Upload your photo to GitHub Issues or use any image hosting service
-2. Update the `src` attribute in `index.html` (line 26) with your image URL
+1. Host your photo using a reliable service:
+   - Add it to your repository and reference it locally (e.g., `profile-photo.jpg`)
+   - Use a CDN service like Cloudinary or Imgix
+   - Host it on GitHub Pages with your repository
+2. Update the `src` attribute of the `.profile-photo` element in `index.html` with your image URL
 3. For best results, use a square image (recommended: 600x600px or larger)
 4. The image will automatically be displayed as a circular profile photo
 
